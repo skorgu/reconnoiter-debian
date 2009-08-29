@@ -1,0 +1,12 @@
+patching file Makefile.in
+patching file sql/Makefile.in
+patching file src/Makefile.in
+patching file src/eventer/Makefile.in
+patching file src/java/Makefile.in
+patching file src/jlog/Makefile.in
+patching file src/man/Makefile.in
+patching file src/modules/Makefile.in
+patching file src/noitedit/Makefile.in
+patching file src/stomp/Makefile.in
+patching file src/utils/Makefile.in
+patching file test/Makefile.in

@@ -1,0 +1,42 @@
+Source: reconnoiter
+Section: unknown
+Priority: extra
+Maintainer: skorgu <skorgu@ubuntu.skorgu.net>
+Build-Depends: debhelper (>= 7), autotools-dev, autoconf, build-essential, zlib1g-dev, uuid-dev, libpcre3-dev, libssl-dev, libpq-dev, libxslt-dev, libapr1-dev, libaprutil1-dev, xsltproc, libncurses5-dev, python, libssh2-1-dev, libsnmp-dev
+Standards-Version: 3.8.0
+Homepage: https://labs.omniti.com/trac/reconnoiter
+
+Package: reconnoiter-dbg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Debug symbols for reconnoiter daemons (noitd and stratcond)
+ <insert long description, indented with spaces>
+
+Package: reconnoiter-noitd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Reconnoiter noitd data-gathering daemon.
+ <insert long description, indented with spaces>
+
+Package: reconnoiter-democa
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, openssl
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
+
+Package: reconnoiter-stratcond
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Reconnoiter central stratcond daemon.
+ <insert long description, indented with spaces>
+
+Package: reconnoiter-ui
+Architecture: all
+Depends: libapache2-mod-php5 | php5-cgi | php5, php5-pgsql, perl, ${misc:Depends} 
+Description: PHP ui for Reconnoiter
+ <insert long description, indented with spaces>
+
+Package: reconnoiter-doc
+Architecture: all
+Description: documentation for reconnoiter
+ <insert long description, indented with spaces>

@@ -1,0 +1,131 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## add-distclean.dpatch by  <skorgu@ubuntu.skorgu.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad reconnoiter-0.0.812~/Makefile.in reconnoiter-0.0.812/Makefile.in
+--- reconnoiter-0.0.812~/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/Makefile.in	2009-08-29 17:59:50.000000000 -0400
+@@ -9,3 +9,8 @@
+ clean:
+ 	(cd src && make clean)
+ 	(cd test && make clean)
++
++distclean: 	clean
++	rm -f Makefile config.status
++	(cd src && make distclean)
++	(cd test && make distclean)
+diff -urNad reconnoiter-0.0.812~/sql/Makefile.in reconnoiter-0.0.812/sql/Makefile.in
+--- reconnoiter-0.0.812~/sql/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/sql/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -33,3 +33,6 @@
+ 	$(INSTALL) -m 0644 crontab $(DESTDIR)$(datarootdir)/reconnoiter/crontab
+ 
+ clean:
++
++distclean:
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/Makefile.in reconnoiter-0.0.812/src/Makefile.in
+--- reconnoiter-0.0.812~/src/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -179,3 +179,11 @@
+ clean:	clean-subdirs
+ 	rm -f *.o noitd
+ 
++distclean-subdirs:
++	for dir in $(SUBS) ; do \
++		(cd $$dir && make distclean) ; \
++	done
++
++distclean:	distclean-subdirs clean 
++	rm -f Makefile
++
+diff -urNad reconnoiter-0.0.812~/src/eventer/Makefile.in reconnoiter-0.0.812/src/eventer/Makefile.in
+--- reconnoiter-0.0.812~/src/eventer/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/eventer/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -29,3 +29,6 @@
+ 
+ clean:
+ 	rm -f *.o libeventer.a
++
++distclean:	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/java/Makefile.in reconnoiter-0.0.812/src/java/Makefile.in
+--- reconnoiter-0.0.812~/src/java/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/java/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -67,3 +67,5 @@
+ 	find com -name \*.class -exec rm {} \;
+ 	rm -f reconnoiter.jar
+ 
++distclean: 	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/jlog/Makefile.in reconnoiter-0.0.812/src/jlog/Makefile.in
+--- reconnoiter-0.0.812~/src/jlog/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/jlog/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -78,4 +78,7 @@
+ 	rm -f *.o *.lo *.$(DOTSO) *.a jthreadtest
+ 	-if test -f perl/Makefile ; then cd perl ; make clean ; fi
+ 
++distclean: 	clean
++	rm -f Makefile
++
+ .SUFFIXES: .c .o .lo
+diff -urNad reconnoiter-0.0.812~/src/man/Makefile.in reconnoiter-0.0.812/src/man/Makefile.in
+--- reconnoiter-0.0.812~/src/man/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/man/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -52,3 +52,5 @@
+ clean:
+ 	rm -f noitd.8 noitd.usage.h stratcond.8 stratcond.usage.h
+ 
++distclean:
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/modules/Makefile.in reconnoiter-0.0.812/src/modules/Makefile.in
+--- reconnoiter-0.0.812~/src/modules/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/modules/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -132,3 +132,6 @@
+ 
+ clean:
+ 	rm -f *.lo *.@MODULEEXT@ *.xmlh
++
++distclean:	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/noitedit/Makefile.in reconnoiter-0.0.812/src/noitedit/Makefile.in
+--- reconnoiter-0.0.812~/src/noitedit/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/noitedit/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -74,3 +74,6 @@
+ clean:
+ 	rm -f *.o *.a vi.h emacs.h common.h fcns.h fcns.c \
+ 		help.c help.h editline.c
++
++distclean:	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/stomp/Makefile.in reconnoiter-0.0.812/src/stomp/Makefile.in
+--- reconnoiter-0.0.812~/src/stomp/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/stomp/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -39,3 +39,6 @@
+ 
+ clean:
+ 	rm -f *.o *.a
++
++distclean: 	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/src/utils/Makefile.in reconnoiter-0.0.812/src/utils/Makefile.in
+--- reconnoiter-0.0.812~/src/utils/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/src/utils/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -35,3 +35,6 @@
+ 
+ clean:
+ 	rm -f *.o libnoit_utils.a
++
++distclean:	clean
++	rm -f Makefile
+diff -urNad reconnoiter-0.0.812~/test/Makefile.in reconnoiter-0.0.812/test/Makefile.in
+--- reconnoiter-0.0.812~/test/Makefile.in	2009-08-29 17:59:30.000000000 -0400
++++ reconnoiter-0.0.812/test/Makefile.in	2009-08-29 17:59:41.000000000 -0400
+@@ -65,3 +65,4 @@
+ 	rm -f *.key *.csr *.crt *.pem
+ 	rm -rf demoCA
+ 
++distclean:	clean

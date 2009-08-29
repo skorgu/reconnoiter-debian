@@ -1,0 +1,5 @@
+usr/local/libexec/noit/* 
+etc/reconnoiter/noit.conf.sample 
+usr/share/man/man8/noitd.8 
+usr/sbin/noitd 
+usr/bin/noittrap

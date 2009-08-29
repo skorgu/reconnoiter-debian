@@ -1,0 +1,70 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## create_apache_conf.dpatch by  <skorgu@ubuntu.skorgu.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad reconnoiter-0.0.812~/src/Makefile.in reconnoiter-0.0.812/src/Makefile.in
+--- reconnoiter-0.0.812~/src/Makefile.in	2009-08-29 17:51:12.000000000 -0400
++++ reconnoiter-0.0.812/src/Makefile.in	2009-08-29 17:51:42.000000000 -0400
+@@ -49,7 +49,7 @@
+ 	stratcon_jlog_streamer.o stratcon_datastore.o \
+ 	stratcon_iep.o
+ 
+-all:	noitd stratcond noit.conf test-noit.conf stratcon.conf test-stratcon.conf
++all:	noitd stratcond noit.conf test-noit.conf stratcon.conf test-stratcon.conf apache.conf
+ 
+ make-subdirs:	serf/.libs/libserf-0.o jlog/libjlog.a
+ 	for dir in $(SUBS) ; do \
+@@ -157,6 +157,12 @@
+ 		stratcon.conf.in > \
+ 		stratcon.conf
+ 
++apache.conf:	apache.conf.in Makefile
++	sed -e "s^%sysconfdir%^$(sysconfdir)^g;" \
++		-e "s^%datarootdir%^$(datarootdir)^g;" < \
++		apache.conf.in > \
++		apache.conf
++
+ install:	all
+ 	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(bindir)
+ 	$(INSTALL) -m 0755 scripts/noittrap $(DESTDIR)$(bindir)/noittrap
+@@ -166,6 +172,8 @@
+ 	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(sysconfdir)
+ 	$(INSTALL) -m 0644 stratcon.conf $(DESTDIR)$(sysconfdir)/stratcon.conf.sample
+ 	$(INSTALL) -m 0644 noit.conf $(DESTDIR)$(sysconfdir)/noit.conf.sample
++	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(sysconfdir)/apache2/conf.d/
++	$(INSTALL) -m 0644 apache.conf $(DESTDIR)$(sysconfdir)/apache2/conf.d/reconnoiter
+ 	(cd man && make install DESTDIR=$(DESTDIR))
+ 	(cd modules && make install DESTDIR=$(DESTDIR))
+ 	test -n "@JAVAPARTS@" && (cd @JAVAPARTS@ && make install DESTDIR=$(DESTDIR))
+diff -urNad reconnoiter-0.0.812~/src/apache.conf.in reconnoiter-0.0.812/src/apache.conf.in
+--- reconnoiter-0.0.812~/src/apache.conf.in	1969-12-31 19:00:00.000000000 -0500
++++ reconnoiter-0.0.812/src/apache.conf.in	2009-08-29 17:51:12.000000000 -0400
+@@ -0,0 +1,25 @@
++# reconnoiter default Apache configuration
++
++Alias /reconnoiter %datarootdir%/reconnoiter/htdocs
++
++<Directory %datarootdir%/reconnoiter>
++	Options Indexes FollowSymLinks
++	DirectoryIndex index.php
++	AllowOverride All
++	<IfModule mod_php5.c>
++		AddType application/x-httpd-php .php
++
++		php_flag magic_quotes_gpc Off
++		php_flag track_vars On
++		php_flag register_globals Off
++		php_value include_path .:../lib
++	</IfModule>
++
++</Directory>
++
++# Disallow web access to directories that don't need it
++<Directory %datarootdir%/reconnoiter/lib>
++    Order Deny,Allow
++    Deny from All
++</Directory>
++

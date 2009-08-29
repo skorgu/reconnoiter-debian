@@ -1,0 +1,18 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## create_java_lib_dir.dpatch by  <skorgu@ubuntu.skorgu.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad reconnoiter-0.0.812~/src/java/Makefile.in reconnoiter-0.0.812/src/java/Makefile.in
+--- reconnoiter-0.0.812~/src/java/Makefile.in	2009-08-29 16:47:44.000000000 -0400
++++ reconnoiter-0.0.812/src/java/Makefile.in	2009-08-29 17:05:31.000000000 -0400
+@@ -57,6 +57,7 @@
+ install:	all
+ 	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(javalibdir)
+ 	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(bindir)
++	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(javalibdir)/lib
+ 	$(INSTALL) -m 0644 reconnoiter.jar $(DESTDIR)$(javalibdir)/reconnoiter.jar
+ 	for jar in $(SUPPORT) ; do \
+ 		$(INSTALL) -m 0644 $$jar $(DESTDIR)$(javalibdir)/$$jar ; \

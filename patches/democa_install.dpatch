@@ -1,0 +1,22 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## democa_install.dpatch by  <skorgu@ubuntu.skorgu.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad reconnoiter-0.0.812~/test/Makefile.in reconnoiter-0.0.812/test/Makefile.in
+--- reconnoiter-0.0.812~/test/Makefile.in	2009-08-29 18:16:10.000000000 -0400
++++ reconnoiter-0.0.812/test/Makefile.in	2009-08-29 18:16:49.000000000 -0400
+@@ -27,6 +27,11 @@
+ clean:	clean-keys
+ # This stuff if all cert stuff to make testing the daemons easier
+ 
++install:
++	$(top_srcdir)/buildtools/mkinstalldirs $(DESTDIR)$(sysconfdir)/reconnoiter        
++	$(INSTALL) -m 0644 stratcon.conf $(DESTDIR)$(sysconfdir)/reconnoiter/Makefile
++	$(INSTALL) -m 0644 stratcon.conf $(DESTDIR)$(sysconfdir)/reconnoiter/demo-openssl.cnf
++
+ demoCA-dir:
+ 	@mkdir -p demoCA
+ 	@touch demoCA/index.txt

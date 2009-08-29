@@ -1,0 +1,5 @@
+add-distclean.dpatch
+create_apache_conf.dpatch
+create_java_lib_dir.dpatch
+make_cleaner.dpatch
+democa_install.dpatch

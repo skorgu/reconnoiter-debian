@@ -1,0 +1,25 @@
+# reconnoiter default Apache configuration
+
+Alias /reconnoiter /usr/share/reconnoiter/htdocs
+
+<Directory /usr/share/reconnoiter>
+	Options Indexes FollowSymLinks
+	DirectoryIndex index.php
+	AllowOverride All
+	<IfModule mod_php5.c>
+		AddType application/x-httpd-php .php
+
+		php_flag magic_quotes_gpc Off
+		php_flag track_vars On
+		php_flag register_globals Off
+		php_value include_path .:../lib
+	</IfModule>
+
+</Directory>
+
+# Disallow web access to directories that don't need it
+<Directory /usr/share/reconnoiter/lib>
+    Order Deny,Allow
+    Deny from All
+</Directory>
+

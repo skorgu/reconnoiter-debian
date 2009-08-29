@@ -1,0 +1,18 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## make_cleaner.dpatch by  <skorgu@ubuntu.skorgu.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad reconnoiter-0.0.812~/src/Makefile.in reconnoiter-0.0.812/src/Makefile.in
+--- reconnoiter-0.0.812~/src/Makefile.in	2009-08-29 16:47:44.000000000 -0400
++++ reconnoiter-0.0.812/src/Makefile.in	2009-08-29 17:03:20.000000000 -0400
+@@ -178,4 +178,7 @@
+ 
+ clean:	clean-subdirs
+ 	rm -f *.o noitd
++	rm -f *.conf noitd serf/*.o serf/*.lo serf/buckets/*.o serf/buckets/*.lo serf/*.la
++	rm -rf serf/.libs
++
+ 
