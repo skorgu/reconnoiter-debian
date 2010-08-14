@@ -1,5 +1,5 @@
 CDBS/dpatch to build Reconnoiter in split packages.
 
-Ubuntu required packages to get started: build-essential fakeroot dh-make debhelper subversion git-core
+Ubuntu required packages to get started: build-essential fakeroot dh-make debhelper subversion git-core cdbs
 
 Checkout trunk from SVN into something like reconnoiter-0.0.812, run autoconf there, check this repo out into debian and you should be able to use normal debian build tools to get debs. 
